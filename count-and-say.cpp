@@ -1,5 +1,4 @@
 //https://leetcode.com/problems/count-and-say
-
 class Solution {
 public:
     string nextTerm(string str) {
