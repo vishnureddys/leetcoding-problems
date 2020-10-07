@@ -1,0 +1,78 @@
+//71 Simplify Path Leetcode
+//accepted
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+
+string simplifyPath(string path) 
+    {             
+        stack<string> st;
+        for(int i=0; i<path.size();)
+        {
+            string str="";
+                if(isalnum(path[i+1]) || path[i+1] == '_')
+                {
+                    i++;
+                    while(isalnum(path[i]) || path[i] == '_')
+                    {
+                        str += path[i];
+                        i++;
+                    }
+                    st.push(str);
+                }
+                
+                else if(path[i+1] == '.')
+                {
+                    if(path[i+2] == '.' || (isalnum(path[i+2]) || path[i+1] == '_' ))
+                    {
+                        if((path[i+3] == '/' || path[i+3] == '\0')&& st.size()>0 )
+                        {
+                            st.pop();
+                            i+=3;
+                        }
+                        else if(isalnum(path[i+3]) || path[i+3]=='.' || path[i+1] == '_')
+                        {
+                            i++;
+                            while(path[i] != '/' && i<path.size())
+                            {
+                                str += path[i];
+                                i++;
+                            }
+                            st.push(str);
+                        }
+                        else 
+                            i+=2;
+                        
+                    }
+                    else
+                        i+=2;
+                }
+                    else 
+                        i++;
+        }
+        string str;
+        int size=st.size();
+        str='/';
+        if(st.size()>0)
+        {
+            for(int i=0; i<size; i++)
+            {
+            string s=st.top();
+            str.insert(0,'/'+s);
+            st.pop();
+            }
+            str.erase(str.begin()+str.size()-1);
+        }
+        return str;
+    }
+    
+    int main()
+    {
+        string str;
+        cout<<"Enter path:";
+        cin>>str;
+        string res=simplifyPath(str);
+        cout<<res;
+    }
