@@ -1,3 +1,5 @@
+// https://leetcode.com/problems/design-browser-history/
+
 class BrowserHistory {
 public:
     vector<string> history;
